@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html ng-app="game">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rock Paper Scissors</title>
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-controller="GameController as gameCtrl">
+    <div class="container-fluid mainclass">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3>Rock-Paper-Scissors</h3>
+                <p>Hello!<br/>
+                You can play the game with my pre-defined rule, or you can set your rules by yourself. Enjoy!</p>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#menu1">Default Rule</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Custom Rule</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="menu1" class="tab-pane fade in active">
+                        <h2>Default Rule</h2>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Element</th>
+                                        <th>Beats</th>
+                                        <th>Loses</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rock</td>
+                                        <td>Paper</td>
+                                        <td>Scissors, Hammer, Dynamite</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Paper</td>
+                                        <td>Scissors, Hammer</td>
+                                        <td>Rock, Dynamite</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scissors</td>
+                                        <td>Rock</td>
+                                        <td>Paper, Hammer, Dynamite</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hammer</td>
+                                        <td>Scissors, Rock</td>
+                                        <td>Paper, Dynamite</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dynamite</td>
+                                        <td>Rock, Paper, Scissors, Hammer</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Custom Rule</h3>
+                        <p>Submit 'beats' array of pieces seperated by comma or space in the following text fields. Example: on 'Rock' row write hammer, paper, scissors. That means rock beats hammer, paper and scissors</p>
+                        <form class="form-horizontal">
+                            <rock class="form-group">
+                                <label class="control-label col-xs-2">Rock:</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="rockInp" placeholder="{{rockinvalidInput}}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-click="getInput('rockInp')" type="submit" class="btn btn-primary" id="rockButton">Apply</button>
+                                </div>
+                            </rock>
+                            <paper class="form-group">
+                                <label class="control-label col-xs-2">Paper:</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="paperInp" placeholder="{{paperinvalidInput}}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-click="getInput('paperInp')" type="submit" class="btn btn-primary" id="paperButton">Apply</button>
+                                </div>
+                            </paper>
+                            <scissors class="form-group">
+                                <label class="control-label col-xs-2">Scissors:</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="scissorsInp" placeholder="{{scissorsinvalidInput}}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-click="getInput('scissorsInp')" type="submit" class="btn btn-primary" id="scissorsButton">Apply</button>
+                                </div>
+                            </scissors>
+                            <hammer class="form-group">
+                                <label class="control-label col-xs-2">Hammer:</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="hammerInp" placeholder="{{hammerinvalidInput}}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-click="getInput('hammerInp')" type="submit" class="btn btn-primary" id="hammerButton">Apply</button>
+                                </div>
+                            </hammer>
+                            <dynamite class="form-group">
+                                <label class="control-label col-xs-2">Dynamite:</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="dynamiteInp" placeholder="{{dynamiteinvalidInput}}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-click="getInput('dynamiteInp')" type="submit" class="btn btn-primary" id="dynamiteButton">Apply</button>
+                                </div>
+                            </dynamite>
+                            <div class="form-group">
+                                <div>
+                                    <button ng-click="submitRules()" type="submit" class="btn btn-primary btn-md btn-block submitBtn">Submit</button>
+                                    <button style="margin-left: 15px;" ng-click="clearAll()" type="submit" class="btn btn-warning btn-md resetBtn pull-left">Reset</button>
+                                </div>
+                                <p>{{submitMsg}}</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1 text-center" style="margin-top: 17px;">
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Your Score</th>
+                            <th class="text-center">Computer's Score</th>
+                            <th class="text-center">Tie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{userScore}}</td>
+                            <td>{{compScore}}</td>
+                            <td>{{tieScore}}</td>
+                        </tr>
+                    </tbody>
+                </table> 
+                <button class="btn btn-primary btn-lg custombtn" ng-click="whoWins('rock')">Rock</button>
+                <button class="btn btn-primary btn-lg custombtn" ng-click="whoWins('paper')">Paper</button>
+                <button class="btn btn-primary btn-lg custombtn" ng-click="whoWins('scissors')">Scissors</button>
+                <button class="btn btn-primary btn-lg custombtn" ng-click="whoWins('hammer')">Hammer</button>
+                <button class="btn btn-primary btn-lg custombtn" ng-click="whoWins('dynamite')">Dynamite</button>
+
+                <h3 style="margin-top: 37px;">Your Choice: <strong>{{userselection | uppercase}}</strong></h3>
+                <h3 style="margin-bottom: 37px;">Computer's Choice: <strong>{{compselection | uppercase}}</strong></h3>
+                
+                <div class="center">
+                    <img ng-show="userImage" ng-src="{{userImage}}">
+                    <img ng-show="compImage" ng-src="{{compImage}}">
+                </div>
+                
+                <h2 id="result">{{result}}</h2>  
+                                
+                                 
+            </div>
+        </div>
+    </div>
+     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="vendor/bootstrap.min.js"></script>
+    <script src="vendor/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
