@@ -21,11 +21,11 @@ app.controller('GameController', ['$scope', function ($scope) {
     };
 
     //    pre-defined rules for default rock-paper-scissors
-    var rock = new gamePiece("rock", ["paper"], ["scissors", "hammer", "dynamite"], "img/rock.png");
-    var paper = new gamePiece("paper", ["scissors", "hammer"], ["rock", "dynamite"], "img/paper.png");
-    var scissors = new gamePiece("scissors", ["rock"], ["paper", "hammer", "dynamite"], "img/scissors.jpg");
-    var hammer = new gamePiece("hammer", ["scissors", "rock"], ["paper", "dynamite"], "img/hammer.png");
-    var dynamite = new gamePiece("dynamite", ["scissors", "rock", "paper", "hammer"], [], "img/dynamite.png");
+    var rock = new gamePiece("rock", ["paper"], ["scissors", "hammer", "dynamite"], "./img/rock.png");
+    var paper = new gamePiece("paper", ["scissors", "hammer"], ["rock", "dynamite"], "./img/paper.png");
+    var scissors = new gamePiece("scissors", ["rock"], ["paper", "hammer", "dynamite"], "./img/scissors.jpg");
+    var hammer = new gamePiece("hammer", ["scissors", "rock"], ["paper", "dynamite"], "./img/hammer.png");
+    var dynamite = new gamePiece("dynamite", ["scissors", "rock", "paper", "hammer"], [], "./img/dynamite.png");
 
     var resetAllGamePieces = [];
     var allGamePieces = [];
